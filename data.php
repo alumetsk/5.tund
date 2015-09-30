@@ -8,7 +8,15 @@
 	if(!isset($_SESSION[logged_in_user_id])){
 		header("Location: login.php");
 	}
-	
+	 //kasutaja tahab välja logida
+	 if(isset($_GET["logout"])){
+		 //aadressireal on olemas muutuja logout
+		 
+		 //Kustutame kõik session muutujad ja peatame sessiooni
+		 session_destroy();
+		 
+		 header("Location: login.php");
+	 }
 	
 	
 	
