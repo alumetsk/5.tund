@@ -2,7 +2,7 @@
 
 	
 	//kõik funktsioonid kus tegeleme AB'ga
-	require_once("functions.php");
+	require_once("funktions.php");
 
   // muuutujad errorite jaoks
 	$email_error = "";
@@ -44,7 +44,7 @@
 				$hash = hash("sha512", $password);
 				
 				//kasutaja sisselogimise fn, failist functions.php
-				loginUser();
+				loginUser($email, $hash);
 				
 			}
 
@@ -81,7 +81,8 @@
 				ja parool on ".$create_password."ja räsi on ".$hash;
 				
 				//kasutaja loomise fn, failist functions.php
-				createUser();
+				//sadan kaks muutujat
+				createUser($create_email, $hash);
 			}
 
     } // create if end
@@ -95,8 +96,7 @@
   	$data = htmlspecialchars($data);
   	return $data;
   }
-    //panen ühenduse kinni
-	$mysqli->close();
+    
 ?>
 <!DOCTYPE html>
 <html>

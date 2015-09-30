@@ -6,20 +6,24 @@
 	//loon andmebaasi ühendused
 	require_once("../configglobal.php");
 	$database = "if15_kadri";
-	$mysqli = new mysqli($servername, $server_username, $server_password, $database);
+	
 	
 	
 	//võtab andmed ja sisestab ab'i
-	function createUser(){
+	//võtan vastu 2 muutujat
+	function createUser($create_email, $hash){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUES (?,?)");
 		// asendame ?-märgiud ss-s on string email, s on string passwd
 		$stmt->bind_param("ss", $create_email, $hash);
 		$stmt->execute();
 		$stmt->close();
 		
+		$mysqli->close();
 	}
 	
-	function loginUser(){
+	function loginUser($email, $hash){
+		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$stmt = $mysqli->prepare("SELECT id, email FROM user_sample WHERE email=? AND password=?");
 		$stmt->bind_param("ss", $email, $hash);
 		//muutujad tulemustele
@@ -36,10 +40,9 @@
 				
 		$stmt->close();
 		
-		
+		$mysqli->close();
 	}
-   //panen ühenduse kinni
-	$mysqli->close();
+   
 	
 
 
