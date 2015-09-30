@@ -1,8 +1,8 @@
 <?php
-	//loon andmebaasi ühendused
-	require_once("../../config.php");
-	$database = "if15_kadri";
-	$mysqli = new mysqli($servername, $username, $password, $database);
+
+	
+	//kõik funktsioonid kus tegeleme AB'ga
+	require_once("functions.php");
 
   // muuutujad errorite jaoks
 	$email_error = "";
@@ -43,24 +43,8 @@
 				
 				$hash = hash("sha512", $password);
 				
-				$stmt = $mysqli->prepare("SELECT id, email FROM user_sample WHERE email=? AND password=?");
-				$stmt->bind_param("ss", $email, $hash);
-				
-				//muutujad tulemustele
-				$stmt->bind_result($id_from_db, $email_from_db);				
-				$stmt->execute();
-				
-				//kontrollin kas tulemusi leiti
-				if($stmt->fetch()){
-					//andmebaasis oli midagi
-					echo"Email ja parool õiged, kasutaja id=".$id_from_db;
-					
-				}else{
-					//ei leidnud
-					echo "Wrong credentials!";					
-				}
-				
-				$stmt->close();
+				//kasutaja sisselogimise fn, failist functions.php
+				loginUser();
 				
 			}
 
@@ -96,13 +80,8 @@
 				echo "Võib kasutajat luua! Kasutajanimi on ".$create_email."
 				ja parool on ".$create_password."ja räsi on ".$hash;
 				
-				$stmt = $mysqli->prepare("INSERT INTO user_sample (email, password) VALUES (?,?)");
-				
-				// asendame ?-märgiud ss-s on string email, s on string passwd
-				
-				$stmt->bind_param("ss", $create_email, $hash);
-				$stmt->execute();
-				$stmt->close();
+				//kasutaja loomise fn, failist functions.php
+				createUser();
 			}
 
     } // create if end
