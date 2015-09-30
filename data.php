@@ -1,0 +1,7 @@
+<?php
+
+	//data.php
+	//Siia pääseb sisse loginud
+	
+	
+?>
