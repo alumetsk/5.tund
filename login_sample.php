@@ -2,7 +2,7 @@
 
 	
 	//kõik funktsioonid kus tegeleme AB'ga
-	require_once("funktions.php");
+	require_once("functions.php");
 
   // muuutujad errorite jaoks
 	$email_error = "";
